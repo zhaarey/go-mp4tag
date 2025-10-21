@@ -748,6 +748,9 @@ func writePics(f *os.File, pics []*MP4Picture) error {
 		}
 		boxSize += int32(dataSize + 16)
 	}
+	if boxSize == 8 {
+		return nil
+	}
 
 	boxSizeBytes := putI32BE(boxSize)
 	_, err := f.Write(boxSizeBytes)
@@ -1135,3 +1138,4 @@ func (mp4 *MP4) actualWrite(tags *MP4Tags, _delStrings []string) error {
 	mp4.size = m.size
 	return nil
 }
+
